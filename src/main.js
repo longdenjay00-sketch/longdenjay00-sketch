@@ -1,208 +1,256 @@
 import './style.css';
 
+const ORACLES = [
+  '“He who forgets to subtract 5 inches of take-up on a 1/2-inch EMT stub-up is condemned to the short-scrap bin.” — Codex Conduit, Fol. II',
+  '“Animals stay outside the breaker panel. Fishy stays in the tank. The code book stays open on the bench.” — First Week Canon',
+  '“Three agents walk into a Debian PRoot on a BYYBUO tablet: Antigravity plans the schema, Grok checks the roster, OpenCode runs the shell. Only one heavy process may live.” — Chronicles of aarch64',
+  '“Bro really aligned the 45° center bend on the teardrop mark and hit the 22.5° wings without a dog-leg. +10,000 Journeyman Aura.” — BRaiNRoTRePoRt666X',
+  '“Double the voltage on a fixed resistance, double the current, quadruple the power (P = E² / R). The math respects no excuses.” — Apparatus I',
+  '“Turbo the Turtle, Sneaky the Slider, and Fishy send their regards from the broadcast studio.” — Societas Testudinis',
+];
+
 const REPOS = [
   {
+    folio: 'Codex I',
     name: 'conduit-bending',
     category: 'electrical',
-    badge: 'Electrical / NEC',
+    badge: 'Ordo Electricae',
     stack: 'Markdown · HTML · PDF',
-    desc: 'Instructor scripts for the 6-part EMT hand-bender lab: shoe marks, stub-up, offset, 3-point & 4-point saddles, and 360° bend budget.',
+    desc: 'Six-part EMT hand-bender curriculum: shoe marks, 90° stub-up, offset, 3-point & 4-point saddles, and the sacred 360° bend budget.',
     url: 'https://github.com/longdenjay00-sketch/conduit-bending',
   },
   {
+    folio: 'Codex II',
     name: 'electrician',
     category: 'electrical',
-    badge: 'Electrical / NEC',
-    stack: 'HTML · CSS · Visual Aids',
-    desc: "First-week apprentice curriculum: Ohm's law fundamentals and NEC Chapter 9 Table 1 conduit fill limits (53% / 31% / 40%).",
+    badge: 'Ordo Electricae',
+    stack: 'HTML · CSS · Visual Plates',
+    desc: "Week-one public treatise on Ohm's Law and NEC Chapter 9, Table 1 conduit fill limits (53% one conductor, 31% two, 40% three+).",
     url: 'https://github.com/longdenjay00-sketch/electrician',
   },
   {
+    folio: 'Codex III',
     name: 'turbo-the-turtle',
     category: 'media',
-    badge: 'Turbo-The-Turtle',
-    stack: 'Channel Hub',
-    desc: 'Companion repository celebrating Turbo the Turtle, Sneaky the Slider, and Fishy on the Turbo-The-Turtle YouTube channel.',
+    badge: 'Societas Testudinis',
+    stack: 'Channel Chronicle',
+    desc: 'First-anniversary archive for the Turbo-The-Turtle YouTube channel featuring Turbo, Sneaky the Slider, and Fishy.',
     url: 'https://github.com/longdenjay00-sketch/turbo-the-turtle',
   },
   {
+    folio: 'Codex IV',
     name: 'LongCat-best-use-cases',
     category: 'media',
-    badge: 'Media / Python',
+    badge: 'Media Alchemy',
     stack: 'Python · video_tools.py',
-    desc: 'Video pipeline utilities and LongCat workflow examples for creator production automation.',
+    desc: 'Automated video processing scripts and LongCat media workflows powering creator production pipelines.',
     url: 'https://github.com/longdenjay00-sketch/LongCat-best-use-cases',
   },
   {
+    folio: 'Codex V',
     name: 'longdenjay00-sketch',
     category: 'system',
-    badge: 'Profile & Pages',
+    badge: 'Index Librorum',
     stack: 'Vite · GitHub Actions',
-    desc: 'Public profile README and Industrial Field Utility web showcase built and deployed from an aarch64 tablet rig.',
+    desc: 'This Dark Academia & Field Engineering scriptorium, built on an aarch64 tablet and deployed via GitHub Pages.',
     url: 'https://github.com/longdenjay00-sketch/longdenjay00-sketch',
   },
 ];
 
 const BEND_TABLE = {
-  '10': { mult: 6.0, shrinkLabel: '1/16 in. (0.0625")', shrink: 0.0625 },
-  '22.5': { mult: 2.6, shrinkLabel: '3/16 in. (0.1875")', shrink: 0.1875 },
-  '30': { mult: 2.0, shrinkLabel: '1/4 in. (0.25")', shrink: 0.25 },
-  '45': { mult: 1.4, shrinkLabel: '3/8 in. (0.375")', shrink: 0.375 },
-  '60': { mult: 1.2, shrinkLabel: '1/2 in. (0.50")', shrink: 0.5 },
+  '10': { mult: 6.0, shrinkLabel: '1/16 in.', shrink: 0.0625 },
+  '22.5': { mult: 2.6, shrinkLabel: '3/16 in.', shrink: 0.1875 },
+  '30': { mult: 2.0, shrinkLabel: '1/4 in.', shrink: 0.25 },
+  '45': { mult: 1.4, shrinkLabel: '3/8 in.', shrink: 0.375 },
+  '60': { mult: 1.2, shrinkLabel: '1/2 in.', shrink: 0.5 },
 };
+
+let oracleIndex = 0;
+let auraScore = 666;
 
 const app = document.querySelector('#app');
 
+const tickerItems = `
+  <span class="gazette-item"><strong>📜 DISPATCH I:</strong> BYYBUO SmartPad T10 (aarch64) · Termux Host · Debian PRoot · Kali Rolling 2026.3</span>
+  <span class="gazette-item"><strong>🕯️ AGENT COUNCIL:</strong> Antigravity (agy) · Grok · OpenCode operating in concert</span>
+  <span class="gazette-item"><strong>⚡ NEC CANON (358.26):</strong> No more than 360° of bends between pull points — offsets &amp; factory elbows count</span>
+  <span class="gazette-item"><strong>🐢 BROADCAST GUILD:</strong> Turbo-The-Turtle YouTube Channel · Starring Turbo, Sneaky the Slider &amp; Fishy</span>
+  <span class="gazette-item"><strong>🔧 SHOP LAW:</strong> A dog-leg is scrap · One heavy process at a time · Zero cloud bloat</span>
+`;
+
 app.innerHTML = `
+  <div class="gazette-bar" title="Hover to pause dispatch">
+    <div class="gazette-track">
+      ${tickerItems}
+      ${tickerItems}
+    </div>
+  </div>
+
   <div class="container">
-    <header class="topbar">
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        <span>HOST: BYYBUO SmartPad T10 (aarch64) // TERMUX + DEBIAN PROOT + KALI ROLLING</span>
+    <header class="masthead">
+      <div class="masthead-left">
+        <span class="wax-seal">L</span>
+        <span>SCRIPTORIUM: <strong>longdenjay00-sketch</strong> // BRaiNRoTRePoRt666X</span>
       </div>
-      <div>HARNESS: <strong>AGY</strong> · <strong>GROK</strong> · <strong>OPENCODE</strong></div>
+      <div class="masthead-controls">
+        <span id="aura-counter">TRADE AURA: <strong>+666</strong></span>
+        <button id="mode-toggle" class="mode-btn" type="button">
+          🕯️ Mode: Dark Academia (Summon 666x Overdrive)
+        </button>
+      </div>
     </header>
 
     <section class="hero">
-      <div class="hero-card">
-        <div>
-          <div class="eyebrow">longdenjay00-sketch // Mobile-First Linux Engineering</div>
-          <h1 class="hero-title">Field Software, Trade Curriculum &amp; Agentic Workflows.</h1>
-          <p class="hero-subtitle">
-            Developing directly from a pocket <code>aarch64</code> tablet running Termux with a Debian PRoot &amp; Kali GNU/Linux Rolling container. Powered by Antigravity (<code>agy</code>), Grok, and OpenCode to ship practical tools for our clients.
-          </p>
-          <div class="badge-row">
-            <span class="badge primary">Antigravity (agy)</span>
-            <span class="badge primary">Grok</span>
-            <span class="badge primary">OpenCode</span>
-            <span class="badge amber">Termux + Debian PRoot</span>
-            <span class="badge amber">Kali Linux aarch64</span>
-            <span class="badge">Vite + GitHub Actions</span>
-          </div>
+      <div class="folio-card">
+        <h1 class="hero-title">The Pocket Scriptorium &amp; Field Engineering Codex.</h1>
+        <p class="hero-epigraph">“Ex Tabula BYYBUO, Scientia, Voltagium, et Testudo.”</p>
+        <p class="hero-lead dropcap">
+          Welcome to the public archive of <strong>longdenjay00-sketch</strong>. Every schematic, trade curriculum, media pipeline, and software artifact cataloged herein is forged on a mobile <code>aarch64</code> tablet workstation running <strong>Termux</strong>, a <strong>Debian PRoot</strong> guest, and a <strong>Kali GNU/Linux Rolling</strong> container—orchestrated alongside our council of autonomous harnesses: <strong>Antigravity (<code>agy</code>)</strong>, <strong>Grok</strong>, and <strong>OpenCode</strong>.
+        </p>
+        <div class="seal-tags">
+          <span class="seal-tag gold">Antigravity (agy)</span>
+          <span class="seal-tag gold">Grok</span>
+          <span class="seal-tag gold">OpenCode</span>
+          <span class="seal-tag crimson">BYYBUO Tablet · aarch64</span>
+          <span class="seal-tag">Termux + Debian PRoot + Kali</span>
+          <span class="seal-tag">Vite + GitHub Actions</span>
         </div>
         <div class="cta-row">
           <a class="btn primary" href="https://github.com/longdenjay00-sketch" target="_blank" rel="noopener">
-            GitHub Profile ↗
+            Enter GitHub Scriptorium ↗
           </a>
           <a class="btn" href="https://github.com/longdenjay00-sketch/conduit-bending" target="_blank" rel="noopener">
-            EMT Bending Lab
+            Codex I: Conduit Bending
           </a>
           <a class="btn" href="https://github.com/longdenjay00-sketch/electrician" target="_blank" rel="noopener">
-            Week-1 Electrician Page
+            Codex II: Electrician
           </a>
         </div>
       </div>
 
-      <div class="terminal-card">
-        <div class="terminal-header">
-          <div class="terminal-dots">
-            <span></span><span></span><span></span>
+      <div class="grimoire-terminal">
+        <div class="grimoire-header">
+          <span>CODEX MACHINA // TELEMETRY</span>
+          <span>root@kali-proot:~#</span>
+        </div>
+        <div class="grimoire-body">
+          <div>
+            <div class="cmd-line">┌──(root㉿kali)-[/root/10_DEV/11_PROJECTS]</div>
+            <div class="cmd-line">└─# ./inspect-scriptorium --verbose</div>
+            <ul class="spec-list">
+              <li><span class="spec-k">Vessel</span><span class="spec-v">BYYBUO SmartPad T10 (aarch64)</span></li>
+              <li><span class="spec-k">Outer Sanctum</span><span class="spec-v">Android + Termux (tmux bindings)</span></li>
+              <li><span class="spec-k">Inner Sanctum</span><span class="spec-v">Debian PRoot · Kali Rolling 2026.3</span></li>
+              <li><span class="spec-k">Familiar Spirits</span><span class="spec-v">Antigravity (agy) · Grok · OpenCode</span></li>
+              <li><span class="spec-k">Sacred Tongues</span><span class="spec-v">Python (uv) · Rust · POSIX sh · JS</span></li>
+              <li><span class="spec-k">Monastic Rule</span><span class="spec-v">1 Heavy Process at a Time</span></li>
+            </ul>
           </div>
-          <span>root@kali-proot: ~/10_DEV/11_PROJECTS</span>
-        </div>
-        <div class="terminal-body">
-          <div class="prompt-line">┌──(root㉿kali)-[/root/10_DEV/11_PROJECTS]</div>
-          <div class="prompt-line">└─# ./workstation-status --summary</div>
-          <ul class="kv-list">
-            <li><span class="kv-key">Machine</span><span class="kv-val">BYYBUO SmartPad T10 (aarch64)</span></li>
-            <li><span class="kv-key">Host OS</span><span class="kv-val">Android + Termux (tmux extra-keys)</span></li>
-            <li><span class="kv-key">Container</span><span class="kv-val">Debian PRoot / Kali Rolling 2026.3</span></li>
-            <li><span class="kv-key">AI Harnesses</span><span class="kv-val">Antigravity (agy) · Grok · OpenCode</span></li>
-            <li><span class="kv-key">Languages</span><span class="kv-val">Python (uv) · Rust · POSIX sh · JS</span></li>
-            <li><span class="kv-key">Build Discipline</span><span class="kv-val">Local-first · 1 heavy job at a time</span></li>
-          </ul>
-          <div class="prompt-line">└─# gh repo list longdenjay00-sketch</div>
-          <div>✓ Public showcase &amp; trade curriculum online</div>
+          <div>
+            <div class="oracle-box" id="oracle-text">
+              ${ORACLES[0]}
+            </div>
+            <div class="oracle-footer">
+              <span>APHORISMS OF THE BENCH</span>
+              <button class="oracle-btn" id="oracle-next" type="button">Consult Oracle (+Aura) ↻</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="section-header">
-        <h2 class="section-title">Clients &amp; Active Organizations</h2>
-        <span class="section-sub">PRODUCTION WORKSTREAMS</span>
+      <div class="chapter-header">
+        <h2 class="chapter-title"><span class="chapter-numeral">Chapter I.</span> The Patron Houses &amp; Commissions</h2>
+        <span class="chapter-sub">CLIENT WORKSTREAMS &amp; GUILDS</span>
       </div>
 
-      <div class="client-grid">
-        <article class="client-card electric">
-          <span class="client-tag">⚡ Client // Trade Education &amp; Field Software</span>
+      <div class="patron-grid">
+        <article class="patron-card electric">
+          <span class="patron-latin">⚡ Ordo Reparationis Electricae // Trade &amp; Field Guild</span>
           <h3>Electric Service Repair Organization</h3>
-          <p class="repo-desc">
-            NEC-grounded curriculum, instructor lab scripts, and multi-platform field calculators designed for gloved shop-floor and apprentice use.
+          <p class="patron-desc">
+            Rigorous shop-bench manuscripts, NEC-referenced curricula, and high-contrast field calculators engineered for apprentices, instructors, and working electricians.
           </p>
-          <ul class="client-list">
+          <ul class="chronicle-list">
             <li>
-              <strong>conduit-bending:</strong> Six-lab hand-bender sequence (shoe marks, 90° stub-up, offset, 3-point &amp; 4-point saddles, and 360° bend budget) with printable bench charts.
+              <strong>conduit-bending:</strong> Six-lab hand-bender sequence covering shoe marks, 90° stub-ups, offsets, 3-point &amp; 4-point saddles, and the 360° bend budget, complete with printable shop posters.
             </li>
             <li>
-              <strong>electrician:</strong> Week-one public lessons covering Ohm's Law and NEC Chapter 9, Table 1 conduit fill (53% one conductor, 31% two, 40% three+).
+              <strong>electrician:</strong> Week-one public foundation covering Ohm's Law and NEC Chapter 9, Table 1 conduit fill percentages (53% / 31% / 40%).
             </li>
             <li>
-              <strong>VOLTPRO NEC &amp; Ohm's Law Suite:</strong> Cross-platform calculators targeting Android APK (Gradle), Python, Rust, POSIX shell, and Web.
+              <strong>VOLTPRO NEC &amp; Multi-Port Calculators:</strong> Unified calculator architecture ported across Android APK (Gradle), Python, Rust, POSIX shell, and Web.
             </li>
           </ul>
+          <div class="footnote-callout">
+            * Marginalia: “Verify every table cell against the adopted NFPA 70 codebook on the bench. A dog-leg is scrap.”
+          </div>
         </article>
 
-        <article class="client-card turtle">
-          <span class="client-tag">🐢 Client // Creator Media &amp; Automation</span>
+        <article class="patron-card turtle">
+          <span class="patron-latin">🐢 Societas Testudinis // Broadcast &amp; Media House</span>
           <h3>Turbo-The-Turtle YouTube Channel</h3>
-          <p class="repo-desc">
-            Video workflow scripts, companion web pages, and production utilities for <strong>Turbo the Turtle</strong>, her pal <strong>Sneaky the Slider</strong>, and <strong>Fishy</strong>.
+          <p class="patron-desc">
+            Creative direction, video automation scripts, and companion web chronicles for <strong>Turbo the Turtle</strong>, her co-star <strong>Sneaky the Slider</strong>, and <strong>Fishy</strong>.
           </p>
-          <ul class="client-list">
+          <ul class="chronicle-list">
             <li>
-              <strong>turbo-the-turtle:</strong> Channel hub commemorating Turbo's 1st YouTube anniversary and community milestones.
+              <strong>turbo-the-turtle:</strong> Official channel milestone repository celebrating Turbo's 1st anniversary and community dispatches.
             </li>
             <li>
-              <strong>LongCat-best-use-cases:</strong> Python media processing toolkit (<code>video_tools.py</code>) for automated clip prep and channel publishing workflows.
+              <strong>LongCat-best-use-cases:</strong> Python media alchemy (<code>video_tools.py</code>) automating clip assembly and creator workflows.
             </li>
             <li>
-              <strong>Companion Story &amp; Web Builds:</strong> Interactive assets and alt-text/caption utilities tailored for mobile creator publishing.
+              <strong>Strict Studio Safety Protocol:</strong> As codified in our week-one electrical notes, animals stay outside the panel and Fishy remains safely in the tank.
             </li>
           </ul>
+          <div class="footnote-callout">
+            * Marginalia: “One year of broadcast dominion by land, basking rock, and aquarium.”
+          </div>
         </article>
       </div>
     </section>
 
     <section>
-      <div class="section-header">
-        <h2 class="section-title">Interactive Shop Bench Utilities</h2>
-        <span class="section-sub">LIVE DEMOS FROM OUR ELECTRICAL CURRICULUM</span>
+      <div class="chapter-header">
+        <h2 class="chapter-title"><span class="chapter-numeral">Chapter II.</span> The Alchemical Bench Apparatus</h2>
+        <span class="chapter-sub">INTERACTIVE SHOP INSTRUMENTS</span>
       </div>
 
-      <div class="bench-grid">
-        <div class="bench-card">
-          <h3>Ohm's Law Field Solver (E = I × R)</h3>
-          <p>Enter Voltage (V) and Resistance (Ω) to compute Current (I) and Power (P).</p>
+      <div class="apparatus-grid">
+        <div class="apparatus-card">
+          <h3>Apparatus I: Lex Ohmii (E = I × R)</h3>
+          <p>Inscribe Voltage (V) and Resistance (Ω) to derive Current (I), Power (P), and fixed-resistance proportionality.</p>
           <div class="calc-row">
             <div class="calc-field">
-              <label for="volts">Voltage (V)</label>
+              <label for="volts">Electromotive Force (Volts)</label>
               <input id="volts" type="number" value="120" min="0" step="any" />
             </div>
             <div class="calc-field">
-              <label for="ohms">Resistance (Ω)</label>
+              <label for="ohms">Resistance (Ohms Ω)</label>
               <input id="ohms" type="number" value="24" min="0.01" step="any" />
             </div>
           </div>
           <div id="ohm-output" class="calc-output"></div>
         </div>
 
-        <div class="bench-card">
-          <h3>EMT Offset &amp; Shrink Calculator</h3>
-          <p>Shop layout chart for hand benders: spacing = depth × multiplier, plus total shrink.</p>
+        <div class="apparatus-card">
+          <h3>Apparatus II: EMT Offset &amp; Shrink Reckoner</h3>
+          <p>Bench layout geometry: Distance between marks = depth × multiplier; add shrink to the far mark.</p>
           <div class="calc-row">
             <div class="calc-field">
-              <label for="depth">Obstacle Depth (in.)</label>
+              <label for="depth">Obstruction Depth (in.)</label>
               <input id="depth" type="number" value="6" min="0.5" step="0.5" />
             </div>
             <div class="calc-field">
-              <label for="angle">Bend Angle</label>
+              <label for="angle">Shoe Bend Angle</label>
               <select id="angle">
-                <option value="10">10°</option>
-                <option value="22.5">22.5°</option>
-                <option value="30" selected>30° (Multiplier ×2)</option>
-                <option value="45">45°</option>
-                <option value="60">60°</option>
+                <option value="10">10° (×6.0 · 1/16" shrink)</option>
+                <option value="22.5">22.5° (×2.6 · 3/16" shrink)</option>
+                <option value="30" selected>30° (×2.0 · 1/4" shrink)</option>
+                <option value="45">45° (×1.4 · 3/8" shrink)</option>
+                <option value="60">60° (×1.2 · 1/2" shrink)</option>
               </select>
             </div>
           </div>
@@ -212,39 +260,54 @@ app.innerHTML = `
     </section>
 
     <section>
-      <div class="section-header">
-        <h2 class="section-title">Public Repository Index</h2>
-        <span class="section-sub">GITHUB.COM/LONGDENJAY00-SKETCH</span>
+      <div class="chapter-header">
+        <h2 class="chapter-title"><span class="chapter-numeral">Chapter III.</span> Index Librorum (Public Repositories)</h2>
+        <span class="chapter-sub">CATALOGED MANUSCRIPTS ON GITHUB</span>
       </div>
 
       <div class="filter-bar" id="filter-bar">
-        <button class="filter-btn active" data-filter="all">All Public Repos</button>
-        <button class="filter-btn" data-filter="electrical">Electrical / NEC</button>
-        <button class="filter-btn" data-filter="media">Turbo-The-Turtle / Media</button>
-        <button class="filter-btn" data-filter="system">Workstation / Profile</button>
+        <button class="filter-btn active" data-filter="all">All Codices</button>
+        <button class="filter-btn" data-filter="electrical">Ordo Electricae (NEC / Trade)</button>
+        <button class="filter-btn" data-filter="media">Societas Testudinis (Turbo / Media)</button>
+        <button class="filter-btn" data-filter="system">Scriptorium &amp; System</button>
       </div>
 
-      <div class="repo-grid" id="repo-grid"></div>
+      <div class="codex-grid" id="codex-grid"></div>
     </section>
 
-    <footer class="footer">
-      <span>Built with Vite · Deployed via GitHub Actions to GitHub Pages</span>
-      <span>BYYBUO Tablet · Termux · Debian PRoot · Kali Rolling · agy / Grok / OpenCode</span>
+    <footer class="colophon">
+      <div>
+        <span class="colophon-latin">Finis Coronat Opus.</span> &nbsp;//&nbsp; Compiled with Vite &amp; GitHub Actions
+      </div>
+      <div>
+        BYYBUO SmartPad T10 (aarch64) · Termux · Debian PRoot · Kali Rolling · agy / Grok / OpenCode
+      </div>
     </footer>
   </div>
 `;
+
+function bumpAura(amount = 42) {
+  auraScore += amount;
+  const el = document.querySelector('#aura-counter');
+  if (el) {
+    el.innerHTML = `TRADE AURA: <strong>+${auraScore}</strong>`;
+  }
+}
 
 function updateOhmCalc() {
   const v = parseFloat(document.querySelector('#volts').value) || 0;
   const r = parseFloat(document.querySelector('#ohms').value) || 0;
   const out = document.querySelector('#ohm-output');
   if (r <= 0) {
-    out.textContent = 'Enter a resistance greater than 0 Ω.';
+    out.innerHTML = 'Resistance must exceed 0 Ω lest a dead short be summoned.';
     return;
   }
   const amps = v / r;
   const watts = v * amps;
-  out.innerHTML = `Current (I): <strong>${amps.toFixed(2)} A</strong> &nbsp;|&nbsp; Power (P): <strong>${watts.toFixed(1)} W</strong>`;
+  out.innerHTML = `
+    <div>Current (I): <strong>${amps.toFixed(2)} A</strong> &nbsp;|&nbsp; Power (P): <strong>${watts.toFixed(1)} W</strong></div>
+    <div class="calc-verdict">At 2× Voltage (${(v * 2).toFixed(0)} V) on fixed ${r} Ω → ${(amps * 2).toFixed(2)} A &amp; ${(watts * 4).toFixed(1)} W (4× power).</div>
+  `;
 }
 
 function updateBendCalc() {
@@ -253,27 +316,32 @@ function updateBendCalc() {
   const row = BEND_TABLE[angle];
   const spacing = depth * row.mult;
   const totalShrink = depth * row.shrink;
+  const degreesUsed = parseFloat(angle) * 2;
+  const budgetLeft = 360 - degreesUsed;
   const out = document.querySelector('#bend-output');
-  out.innerHTML = `Mark Spacing: <strong>${spacing.toFixed(2)} in.</strong> (×${row.mult}) &nbsp;|&nbsp; Add Shrink: <strong>+${totalShrink.toFixed(3)} in.</strong> (${row.shrinkLabel}/in.)`;
+  out.innerHTML = `
+    <div>Mark Spacing: <strong>${spacing.toFixed(2)} in.</strong> (×${row.mult}) &nbsp;|&nbsp; Total Shrink: <strong>+${totalShrink.toFixed(3)} in.</strong> (${row.shrinkLabel}/in.)</div>
+    <div class="calc-verdict">Two-bend offset consumes ${degreesUsed}° — leaving <strong>${budgetLeft}°</strong> in the 360° NEC 358.26 pull budget.</div>
+  `;
 }
 
 function renderRepos(filter = 'all') {
-  const grid = document.querySelector('#repo-grid');
+  const grid = document.querySelector('#codex-grid');
   const items = filter === 'all' ? REPOS : REPOS.filter((r) => r.category === filter);
   grid.innerHTML = items
     .map(
       (r) => `
-      <a class="repo-card" href="${r.url}" target="_blank" rel="noopener">
+      <a class="codex-card" href="${r.url}" target="_blank" rel="noopener">
         <div>
-          <div class="repo-top">
-            <span class="repo-name">${r.name}</span>
-            <span class="repo-cat">${r.badge}</span>
+          <div class="codex-top">
+            <span class="codex-name">${r.name}</span>
+            <span class="codex-badge">${r.folio} · ${r.badge}</span>
           </div>
-          <p class="repo-desc" style="margin-top: 0.6rem;">${r.desc}</p>
+          <p class="codex-desc" style="margin-top: 0.65rem;">${r.desc}</p>
         </div>
-        <div class="repo-meta">
+        <div class="codex-meta">
           <span>${r.stack}</span>
-          <span>View Repo →</span>
+          <span>Inspect Folio →</span>
         </div>
       </a>
     `
@@ -281,10 +349,37 @@ function renderRepos(filter = 'all') {
     .join('');
 }
 
-document.querySelector('#volts').addEventListener('input', updateOhmCalc);
-document.querySelector('#ohms').addEventListener('input', updateOhmCalc);
-document.querySelector('#depth').addEventListener('input', updateBendCalc);
-document.querySelector('#angle').addEventListener('change', updateBendCalc);
+document.querySelector('#volts').addEventListener('input', () => {
+  updateOhmCalc();
+  bumpAura(5);
+});
+document.querySelector('#ohms').addEventListener('input', () => {
+  updateOhmCalc();
+  bumpAura(5);
+});
+document.querySelector('#depth').addEventListener('input', () => {
+  updateBendCalc();
+  bumpAura(5);
+});
+document.querySelector('#angle').addEventListener('change', () => {
+  updateBendCalc();
+  bumpAura(10);
+});
+
+document.querySelector('#oracle-next').addEventListener('click', () => {
+  oracleIndex = (oracleIndex + 1) % ORACLES.length;
+  document.querySelector('#oracle-text').textContent = ORACLES[oracleIndex];
+  bumpAura(66);
+});
+
+document.querySelector('#mode-toggle').addEventListener('click', (e) => {
+  document.body.classList.toggle('brainrot-overdrive');
+  const active = document.body.classList.contains('brainrot-overdrive');
+  e.currentTarget.textContent = active
+    ? '🔥 Mode: 666x Brainrot Academia (Active)'
+    : '🕯️ Mode: Dark Academia (Summon 666x Overdrive)';
+  bumpAura(111);
+});
 
 document.querySelector('#filter-bar').addEventListener('click', (e) => {
   const btn = e.target.closest('.filter-btn');
