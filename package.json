@@ -1,0 +1,15 @@
+{
+  "name": "longdenjay00-sketch",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Developer profile, mobile aarch64 workstation architecture, and client project showcase for longdenjay00-sketch",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
+}
