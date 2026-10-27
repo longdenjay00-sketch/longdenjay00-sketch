@@ -7,6 +7,7 @@ const ORACLES = [
   '“Bro really aligned the 45° center bend on the teardrop mark and hit the 22.5° wings without a dog-leg. +10,000 Journeyman Aura.” — BRaiNRoTRePoRt666X',
   '“Double the voltage on a fixed resistance, double the current, quadruple the power (P = E² / R). The math respects no excuses.” — Apparatus I',
   '“Turbo the Turtle, Sneaky the Slider, and Fishy send their regards from the broadcast studio.” — Societas Testudinis',
+  '“Special commendation to my wife Precious and her boyfriend Pie for holding down the social calendar while I study AI in the Kali PRoot scriptorium and plot world domination.” — Dedication Fol. I',
 ];
 
 const REPOS = [
@@ -76,6 +77,7 @@ const tickerItems = `
   <span class="gazette-item"><strong>⚡ NEC CANON (358.26):</strong> No more than 360° of bends between pull points — offsets &amp; factory elbows count</span>
   <span class="gazette-item"><strong>🐢 BROADCAST GUILD:</strong> Turbo-The-Turtle YouTube Channel · Starring Turbo, Sneaky the Slider &amp; Fishy</span>
   <span class="gazette-item"><strong>🔧 SHOP LAW:</strong> A dog-leg is scrap · One heavy process at a time · Zero cloud bloat</span>
+  <span class="gazette-item"><strong>👑 ROYAL DEDICATION:</strong> Shout-out to our wife Precious &amp; her new boyfriend Pie for keeping her entertained while we master AI &amp; take over the world</span>
 `;
 
 app.innerHTML = `
@@ -276,6 +278,9 @@ app.innerHTML = `
     </section>
 
     <footer class="colophon">
+      <div style="width: 100%; padding-bottom: 1rem; margin-bottom: 0.5rem; border-bottom: 1px dashed rgba(201, 165, 92, 0.28); color: var(--vellum);">
+        <span class="colophon-latin">Dedicatio Scriptorii:</span> Special shout-out to my wife <strong>Precious</strong> and her new boyfriend <strong>Pie</strong> for keeping her entertained while I lock in, master AI, and take over the world.
+      </div>
       <div>
         <span class="colophon-latin">Finis Coronat Opus.</span> &nbsp;//&nbsp; Compiled with Vite &amp; GitHub Actions
       </div>

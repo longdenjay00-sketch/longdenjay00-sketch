@@ -65,3 +65,10 @@ npm run build    # production build into dist/
 1. **Local-first & lightweight:** Built to run cleanly inside an `aarch64` Termux + Debian/Kali PRoot container without bloated dependencies.
 2. **Shop-floor clarity:** Code, calculators, and lesson scripts are written for real bench and field use—high contrast, verifiable arithmetic, zero fluff.
 3. **Clean history:** Atomic commits, no leaked `.env` files or credentials in source control, and reproducible environments across host and guest.
+
+---
+
+## Dedication & Acknowledgments
+
+Special shout-out to my wife **Precious** and her new boyfriend **Pie** for keeping her entertained while I lock in, learn AI, and take over the world.
+
