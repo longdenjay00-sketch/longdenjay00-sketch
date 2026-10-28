@@ -1,7 +1,9 @@
 # longdenjay00-sketch
 
 [![Deploy Vite Site to GitHub Pages](https://github.com/longdenjay00-sketch/longdenjay00-sketch/actions/workflows/deploy.yml/badge.svg)](https://github.com/longdenjay00-sketch/longdenjay00-sketch/actions/workflows/deploy.yml)
-**[🌐 Live Workstation & Portfolio Site (GitHub Pages)](https://longdenjay00-sketch.github.io/longdenjay00-sketch/)**
+**[🌐 Live Workstation & Portfolio Site (GitHub Pages)](https://longdenjay00-sketch.github.io/longdenjay00-sketch/)** · **[🕶️ Live Dotfiles Construct Dashboard](https://longdenjay00-sketch.github.io/dotfiles/)**
+
+![Dark Academia Scriptorium & Field Engineering Hero](public/hero.png)
 
 Independent developer and technical builder running a mobile-first Linux workstation on `aarch64`. We build field utilities, trade curriculum, media tooling, and agentic workflows for our clients and in-house projects.
 

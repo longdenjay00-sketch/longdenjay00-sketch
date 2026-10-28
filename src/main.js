@@ -49,6 +49,15 @@ const REPOS = [
   },
   {
     folio: 'Codex V',
+    name: 'dotfiles',
+    category: 'system',
+    badge: 'Morpheus Construct',
+    stack: 'React 19 · Vite · Bash/Zsh',
+    desc: 'Matrix/Morpheus dotfiles for Termux Host (Blue Pill) and Kali PRoot Guest (Red Pill) with non-destructive setup.sh.',
+    url: 'https://longdenjay00-sketch.github.io/dotfiles/',
+  },
+  {
+    folio: 'Codex VI',
     name: 'longdenjay00-sketch',
     category: 'system',
     badge: 'Index Librorum',
@@ -101,6 +110,13 @@ app.innerHTML = `
         </button>
       </div>
     </header>
+
+    <div class="scriptorium-banner">
+      <img src="./hero.png" alt="Dark Academia Candlelit Scriptorium Desk and BYYBUO Tablet Terminal" />
+      <div class="scriptorium-banner-caption">
+        PLATE I // GROK IMAGINE — CANDLELIT SCRIPTORIUM &amp; AARCH64 FIELD ENGINEERING WORKSTATION
+      </div>
+    </div>
 
     <section class="hero">
       <div class="folio-card">
